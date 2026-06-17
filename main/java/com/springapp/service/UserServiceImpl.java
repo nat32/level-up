@@ -3,7 +3,7 @@ package com.springapp.service;
 
 import com.springapp.model.Level;
 import com.springapp.model.User;
-import com.springapp.repository.LevelRepository;
+import com.springapp.service.LevelService;
 import com.springapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private LevelRepository levelRepository;
+    private LevelService levelService;
 
     @Override
     public User createUser(User user) {
@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
 
         int next_level_number = level_number + 1;
 
-        Level level = levelRepository.getLevelByNumber(next_level_number);
+        Level level = levelService.getLevelByNumber(next_level_number);
 
         int next_level_points = level.getPoints();
 
@@ -125,7 +125,7 @@ public class UserServiceImpl implements UserService {
 
                 Integer before_level_number = level_number - 1 ;
 
-                Level level = levelRepository.getLevelByNumber(before_level_number);
+                Level level = levelService.getLevelByNumber(before_level_number);
 
                 Integer before_level_id = level.getId();
 

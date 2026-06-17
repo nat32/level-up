@@ -1,7 +1,7 @@
 package com.springapp.controller;
 
 import com.springapp.model.Level;
-import com.springapp.repository.LevelRepository;
+import com.springapp.service.LevelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +14,7 @@ import java.util.List;
 public class LevelController {
 
 	@Autowired
-	private LevelRepository levelRepository;
+	private LevelService levelService;
 
 	/**
 	 * Fonction qui a été utilisée lors de la création de 100 niveaux disponibles
@@ -24,7 +24,7 @@ public class LevelController {
 	/*
 	@RequestMapping(value = "/createLevel", method = RequestMethod.POST)
 	public @ResponseBody Level createLevel(@RequestBody Level level) {
-		return levelRepository.createLevel(level);
+		return levelService.createLevel(level);
 	}
 	*/
 
@@ -35,7 +35,7 @@ public class LevelController {
 	@RequestMapping(value = "/levels", method = RequestMethod.GET)
 	public @ResponseBody List<Level> findAllLevels() {
 
-		return levelRepository.findAllLevels();
+		return levelService.findAllLevels();
 	}
 
 }

@@ -2,8 +2,8 @@ package com.springapp.controller;
 
 import com.springapp.model.Prize;
 import com.springapp.model.User;
-import com.springapp.repository.PrizeRepository;
 import com.springapp.service.UserService;
+import com.springapp.service.PrizeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,7 +23,7 @@ import java.util.List;
 public class PrizeController {
 
     @Autowired
-    private PrizeRepository prizeRepository;
+    private PrizeService prizeService;
 
     @Autowired
     private UserService userService;
@@ -83,7 +83,7 @@ public class PrizeController {
             new_prize.setLevel_id(form_level_id);
             new_prize.setUser_id(user_id);
 
-            prizeRepository.createPrize(new_prize);
+            prizeService.createPrize(new_prize);
 
             model.addAttribute("user_id",  user_id);
             model.addAttribute("message", 2);
@@ -133,7 +133,7 @@ public class PrizeController {
             model.addAttribute("level", user.getLevel_number());
 
             model.addAttribute("user_id", user_id);
-            List<Prize> prizes = prizeRepository.getUserPrizes(user_id);
+            List<Prize> prizes = prizeService.getUserPrizes(user_id);
             model.addAttribute("prizes", prizes);
             return "showPrizes";
         } else {
@@ -170,7 +170,7 @@ public class PrizeController {
 
             model.addAttribute("user_id", user_id);
 
-            List<Prize> prizes = prizeRepository.getUserWonPrizes(user_id);
+            List<Prize> prizes = prizeService.getUserWonPrizes(user_id);
 
             model.addAttribute("prizes", prizes);
             return "wonPrizes";
@@ -211,12 +211,12 @@ public class PrizeController {
 
             model.addAttribute("user_id", user_id);
 
-            List<Prize> prizes = prizeRepository.getWonPrizes(level_id, user_id);
+            List<Prize> prizes = prizeService.getWonPrizes(level_id, user_id);
 
         /*
         Changer le statut des récompenes à "gagné"
          */
-            prizeRepository.updateWonPrizes(prizes);
+            prizeService.updateWonPrizes(prizes);
 
             model.addAttribute("prizes", prizes);
 
@@ -253,7 +253,7 @@ public class PrizeController {
             model.addAttribute("prize_id", prize_id);
 
 
-            Prize current_prize = prizeRepository.getPrizeWithLevel(prize_id);
+            Prize current_prize = prizeService.getPrizeWithLevel(prize_id);
             model.addAttribute("current_prize", current_prize);
             return "modifyPrize";
         } else {
@@ -286,7 +286,7 @@ public class PrizeController {
 
         if (form_prize_name != null && !form_prize_name.isEmpty() && (form_level_id != 0)) {
 
-            boolean updated = prizeRepository.updatePrize(modified_prize);
+            boolean updated = prizeService.updatePrize(modified_prize);
 
             if (updated) {
 
@@ -343,7 +343,7 @@ public class PrizeController {
 
         if(userIdAuth == user_id) {
 
-            boolean deleted_prize = prizeRepository.deletePrize(prize_id);
+            boolean deleted_prize = prizeService.deletePrize(prize_id);
 
             if(deleted_prize){
 

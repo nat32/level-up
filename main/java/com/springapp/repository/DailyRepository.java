@@ -19,7 +19,7 @@ public interface DailyRepository {
 
     boolean checkDaily(Integer daily_id);
 
-    boolean deleteDaily(Integer todo_id);
+    boolean deleteDaily(Integer daily_id);
 
     int countDailiesNotDone(Integer user_id);
 

@@ -2,9 +2,9 @@ package com.springapp.controller;
 
 import com.springapp.model.Daily;
 import com.springapp.model.User;
-import com.springapp.repository.DailyRepository;
-import com.springapp.repository.PrizeRepository;
 import com.springapp.service.UserService;
+import com.springapp.service.DailyService;
+import com.springapp.service.PrizeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,10 +29,10 @@ public class DailyController {
     private UserService userService;
 
     @Autowired
-    private DailyRepository dailyRepository;
+    private DailyService dailyService;
 
     @Autowired
-    private PrizeRepository prizeRepository;
+    private PrizeService prizeService;
 
     /**
      * Fonction qui affiche le formulaire pour ajoute une tache quotidienne
@@ -88,7 +88,7 @@ public class DailyController {
             new_daily.setName(form_daily_name);
             new_daily.setUser_id(user_id);
 
-            dailyRepository.createDaily(new_daily);
+            dailyService.createDaily(new_daily);
 
             model.addAttribute("message", 2);
             rv.setAttributesMap(model);
@@ -134,9 +134,9 @@ public class DailyController {
 
             model.addAttribute("user_id", user_id);
 
-            List<Daily> dailies = dailyRepository.getUserDailies(user_id);
+            List<Daily> dailies = dailyService.getUserDailies(user_id);
 
-            List<Daily> doneDailies = dailyRepository.getDoneUserDailies(user_id);
+            List<Daily> doneDailies = dailyService.getDoneUserDailies(user_id);
 
             model.addAttribute("dailies", dailies);
 
@@ -176,7 +176,7 @@ public class DailyController {
             User user_before = userService.getUserWithlevel(user_id);
             Integer level_before = user_before.getLevel_number();
 
-            dailyRepository.checkDaily(daily_id);
+            dailyService.checkDaily(daily_id);
             boolean updated = userService.updateUserPointsAndLevel(user_id, DAILY_POINTS);
 
             if (updated) {
@@ -193,7 +193,7 @@ public class DailyController {
                 Vérifier s'il ya des récompenses associés au niveau gagné
                  */
 
-                        Integer prizes = prizeRepository.checkLevelPrizes(level_id, user_id);
+                        Integer prizes = prizeService.checkLevelPrizes(level_id, user_id);
 
                         if (prizes > 0) {
                     /*
@@ -281,7 +281,7 @@ public class DailyController {
 
             model.addAttribute("daily_id", daily_id);
 
-            Daily current_daily = dailyRepository.getDaily(daily_id);
+            Daily current_daily = dailyService.getDaily(daily_id);
             model.addAttribute("current_daily", current_daily);
 
             return "modifyDaily";
@@ -313,7 +313,7 @@ public class DailyController {
 
         if(form_daily_name != null && !form_daily_name.isEmpty() ){
 
-            boolean updated = dailyRepository.updateDaily(modified_daily);
+            boolean updated = dailyService.updateDaily(modified_daily);
 
             if(updated){
 
@@ -366,7 +366,7 @@ public class DailyController {
 
         if(userIdAuth == user_id) {
 
-            boolean deleted_daily = dailyRepository.deleteDaily(daily_id);
+            boolean deleted_daily = dailyService.deleteDaily(daily_id);
 
             if(deleted_daily){
 

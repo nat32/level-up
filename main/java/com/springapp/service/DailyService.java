@@ -1,5 +1,8 @@
 package com.springapp.service;
 
+import com.springapp.model.Daily;
+import java.util.List;
+
 
 public interface DailyService {
 
@@ -11,4 +14,18 @@ public interface DailyService {
      * @return
      */
     int checkDailiesAndGetPenalty(Integer user_id);
+
+    Daily createDaily(Daily daily);
+
+    List<Daily> getUserDailies(Integer id_user);
+
+    List<Daily> getDoneUserDailies(Integer id_user);
+
+    boolean checkDaily(Integer daily_id);
+
+    Daily getDaily(Integer id);
+
+    boolean updateDaily(Daily daily);
+
+    boolean deleteDaily(Integer daily_id);
 }

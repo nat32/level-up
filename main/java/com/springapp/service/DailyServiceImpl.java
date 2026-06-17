@@ -4,6 +4,10 @@ import com.springapp.repository.DailyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.springapp.model.Daily;
+
+import java.util.List;
+
 import static com.springapp.controller.DailyController.DAILY_POINTS;
 
 @Service("dailyService")
@@ -33,5 +37,38 @@ public class DailyServiceImpl implements DailyService {
 
     }
 
+    @Override
+    public Daily createDaily(Daily daily) {
+        return dailyRepository.createDaily(daily);
+    }
 
+    @Override
+    public List<Daily> getUserDailies(Integer id_user) {
+        return dailyRepository.getUserDailies(id_user);
+    }
+
+    @Override
+    public List<Daily> getDoneUserDailies(Integer id_user) {
+        return dailyRepository.getDoneUserDailies(id_user);
+    }
+
+    @Override
+    public boolean checkDaily(Integer daily_id) {
+        return dailyRepository.checkDaily(daily_id);
+    }
+
+    @Override
+    public Daily getDaily(Integer daily_id) {
+        return dailyRepository.getDaily(daily_id);
+    }
+
+    @Override
+    public boolean updateDaily(Daily daily) {
+        return dailyRepository.updateDaily(daily);
+    }
+
+    @Override
+    public boolean deleteDaily(Integer daily_id) {
+        return dailyRepository.deleteDaily(daily_id);
+    }
 }

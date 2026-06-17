@@ -3,9 +3,9 @@ package com.springapp.controller;
 import com.springapp.model.Difficulty;
 import com.springapp.model.Todo;
 import com.springapp.model.User;
-import com.springapp.repository.PrizeRepository;
 import com.springapp.service.TodoService;
 import com.springapp.service.UserService;
+import com.springapp.service.PrizeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,7 +29,7 @@ public class TodoController {
     private UserService userService;
 
     @Autowired
-    private PrizeRepository prizeRepository;
+    private PrizeService prizeService;
 
     /**
      * Fonction permettant d'enregistrer une nouvelle tâche à faire dans la base de données
@@ -94,7 +94,7 @@ public class TodoController {
                     Prize Service
                     Vérifier s'il ya des récompenses associés au niveau gagné
                      */
-                    Integer prizes = prizeRepository.checkLevelPrizes(level_id, user_id);
+                    Integer prizes = prizeService.checkLevelPrizes(level_id, user_id);
 
                     if(prizes > 0 ){
 

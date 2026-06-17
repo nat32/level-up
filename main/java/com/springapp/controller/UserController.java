@@ -1,11 +1,6 @@
 package com.springapp.controller;
 
-import com.springapp.model.Daily;
-import com.springapp.model.Prize;
-import com.springapp.model.Todo;
 import com.springapp.model.User;
-import com.springapp.repository.DailyRepository;
-import com.springapp.repository.PrizeRepository;
 import com.springapp.service.DailyService;
 import com.springapp.service.TodoService;
 import com.springapp.service.UserService;
@@ -30,8 +25,6 @@ import java.util.Calendar;
 @Controller
 public class UserController {
 
-
-
     @Autowired
     private UserService userService;
 
@@ -39,13 +32,7 @@ public class UserController {
     private DailyService dailyService;
 
     @Autowired
-    private DailyRepository dailyRepository;
-
-    @Autowired
     private TodoService todoService;
-
-    @Autowired
-    private PrizeRepository prizeRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
